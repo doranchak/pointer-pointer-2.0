@@ -120,8 +120,3 @@ GitHub and could not read every page (see caveats).
 
 **Caveats:** the Fast Company, Observable and ecosyste.ms pages blocked automated fetching, so claims attributed to them come from search
 summaries. HN comments are commenters' claims, not established facts.
-
-## Attribution
-
-The photos and positions belong to the original creators and the people in them. This folder is a personal local copy for
-learning and experimentation; please don't redistribute the images.
