@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%91%89%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Someone is pointing at your pointer. Instantly.">
+<title>Pointer Pointer 2.0</title>
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    background: #111;            /* never pure black, and never visible once a photo is up */
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+                 Cantarell, "Helvetica Neue", sans-serif;
+    font-size: calc(10px + .5vw);
+    -webkit-font-smoothing: antialiased;
+    touch-action: none;          /* touch drags must reach us as pointer events, not scroll */
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  /* Blurred copy of the current photo, scaled to cover the window. It sits behind the (fitted)
+     photo so the bars left over when the window's shape differs from the photo's are filled
+     with the photo's own colours instead of black. */
+  #bg { filter: blur(8px); transform: scale(1.1); }
+
+  /* Touch devices have no hover cursor, so (like the original) draw one where you tap. */
+  #cursor {
+    position: fixed; left: 0; top: 0; width: 15px;
+    pointer-events: none; z-index: 3; display: none; will-change: transform;
+  }
+
+  #hud {
+    position: fixed; z-index: 2;
+    left: 50%; bottom: max(24px, env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    max-width: 80vw; padding: .6em 1.2em;
+    border-radius: 2em; text-align: center;
+    background: rgba(0, 0, 0, .55);
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    transition: opacity .6s ease;
+    pointer-events: none;
+  }
+  #hud.hidden { opacity: 0; }
+  #hud small { display: block; opacity: .7; font-size: .8em; margin-top: .2em; }
+  #hud small:empty { display: none; }
+</style>
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+
+<canvas id="bg" aria-hidden="true"></canvas>
+<canvas id="fg" role="img" aria-label="Someone pointing at your pointer"></canvas>
+<img id="cursor" src="cursor.png" alt="pointer">
+<div id="hud"><span id="hint">Please move your pointer</span><small id="progress"></small></div>
+
+<!-- Plain (non-module) scripts so everything works when opened straight from disk. -->
+<script src="positions.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
